@@ -42,8 +42,8 @@ public class ClickerCounterMain extends Activity {
 	public void newClickerCounter(View view){
 		// go to clicker with the name specified by this button
 		Intent intent = new Intent(this, DisplayCounter.class);
-		Button newCounter = (Button) findViewById(R.id.createCounterButton);
-	    String message = newCounter.getText().toString();
+		Button selectedCounter = (Button) findViewById(R.id.createCounterButton);
+	    String message = selectedCounter.getText().toString();
 	    intent.putExtra(EXTRA_MESSAGE, message);
 	    startActivity(intent);
 	}

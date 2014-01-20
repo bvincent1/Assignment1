@@ -29,13 +29,14 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/editCounterButton"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/displyCounterName"
         android:layout_alignBottom="@+id/displyCounterName"
         android:layout_toRightOf="@+id/counterButton"
-        android:text="Edit" />
+        android:text="@string/edit"
+        android:onClick="editName" />
 
 </RelativeLayout>

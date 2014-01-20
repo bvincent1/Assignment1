@@ -28,7 +28,6 @@ public class DisplayCounter extends Activity {
 		//get intent
 		Intent intent = getIntent();
 		counterName = intent.getStringExtra(ClickerCounterMain.EXTRA_MESSAGE);
-		System.out.println("Startup");
 		System.out.println(counterName);
 		
 	}
@@ -49,6 +48,15 @@ public class DisplayCounter extends Activity {
 		ClickerCounter.setText(Integer.toString(++ClickerCount));
 	
 		System.out.println("shutdown");
+	}
+	
+	public void editName(View view){
+		// go to edit activity and allow for name change
+		Intent intent = new Intent(this, EditCounterName.class);
+		Button editCounter = (Button) findViewById(R.id.editCounterButton);
+	    String message = editCounter.getText().toString();
+	    intent.putExtra(counterName, message);
+	    startActivity(intent);
 	}
 
 	@Override
