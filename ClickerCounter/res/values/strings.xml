@@ -3,6 +3,9 @@
 
     <string name="app_name">ClickerCounter</string>
     <string name="action_settings">Settings</string>
+    <string name="clickerCounterTitle">Welcome</string>
+    <string name="newCounterButton">New Counter+</string>
+    <string name="title_activity_display_counter">My ClickerCounter</string>
     <string name="hello_world">Hello world!</string>
 
 </resources>
