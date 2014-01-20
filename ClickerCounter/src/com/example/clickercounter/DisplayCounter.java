@@ -15,6 +15,8 @@ public class DisplayCounter extends Activity {
 		//get intent
 		Intent intent = getIntent();
 		String message = intent.getStringExtra(ClickerCounterMain.EXTRA_MESSAGE);
+		System.out.println("Startup");
+		System.out.println(message);
 		
 	}
 

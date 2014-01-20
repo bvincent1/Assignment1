@@ -7,5 +7,6 @@
     <string name="newCounterButton">New Counter+</string>
     <string name="title_activity_display_counter">My ClickerCounter</string>
     <string name="hello_world">Hello world!</string>
+    <string name="clickerCount">0</string>
 
 </resources>
