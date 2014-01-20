@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 
 public class DisplayCounter extends Activity {
+	public int ClickerCount = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +21,16 @@ public class DisplayCounter extends Activity {
 		System.out.println("Startup");
 		System.out.println(message);
 		
+	}
+
+	public void incrementCounter(View view){
+		System.out.println("startup");
+	
+		Button ClickerCounter = (Button) findViewById(R.id.counterButton);
+		ClickerCounter.setTag(1);
+		ClickerCounter.setText(Integer.toString(++ClickerCount));
+	
+		System.out.println("shutdown");
 	}
 
 	@Override
