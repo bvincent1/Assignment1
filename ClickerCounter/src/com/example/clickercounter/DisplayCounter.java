@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class DisplayCounter extends Activity {
 	public int ClickerCount = 0;
+	public String counterName;
 
 	public int getClickerCount() {
 		return ClickerCount;
@@ -25,10 +27,18 @@ public class DisplayCounter extends Activity {
 		
 		//get intent
 		Intent intent = getIntent();
-		String message = intent.getStringExtra(ClickerCounterMain.EXTRA_MESSAGE);
+		counterName = intent.getStringExtra(ClickerCounterMain.EXTRA_MESSAGE);
 		System.out.println("Startup");
-		System.out.println(message);
+		System.out.println(counterName);
 		
+	}
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
+		
+		TextView clickerName = (TextView) findViewById(R.id.displyCounterName);
+		clickerName.setText(counterName);
 	}
 
 	public void incrementCounter(View view){

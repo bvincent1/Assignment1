@@ -8,20 +8,34 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".DisplayCounter" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/newCounterButton" />
-
     <Button
         android:id="@+id/counterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp"
-        android:text="@string/clickerCount"
-        android:onClick="incrementCounter" />
+        android:layout_centerVertical="true"
+        android:onClick="incrementCounter"
+        android:text="@string/clickerCount" />
+
+    <TextView
+        android:id="@+id/displyCounterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="33dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/newCounterButton"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/button1"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/displyCounterName"
+        android:layout_alignBottom="@+id/displyCounterName"
+        android:layout_toRightOf="@+id/counterButton"
+        android:text="Edit" />
 
 </RelativeLayout>
