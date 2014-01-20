@@ -24,4 +24,13 @@
         android:text="@string/newCounterButton"
         android:onClick="newClickerCounter" />
 
+    <ListView
+        android:id="@+id/counterListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/createCounterButton"
+        android:layout_centerHorizontal="true" >
+
+    </ListView>
+
 </RelativeLayout>

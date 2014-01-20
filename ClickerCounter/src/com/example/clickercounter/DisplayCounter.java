@@ -10,6 +10,14 @@ import android.widget.Button;
 public class DisplayCounter extends Activity {
 	public int ClickerCount = 0;
 
+	public int getClickerCount() {
+		return ClickerCount;
+	}
+
+	public void setClickerCount(int clickerCount) {
+		ClickerCount = clickerCount;
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
