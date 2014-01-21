@@ -48,15 +48,15 @@ public class ClickerCounterMain extends Activity {
 	        	System.out.println("clicked");
 	        	String selectedFromList = (String) counterList.getItemAtPosition(position);
 	        	System.out.println(selectedFromList);
+	        	
+	        	displayClickerCounter(view, selectedFromList);
 	        }
 	    });
 	}
 	
-	public void newClickerCounter(View view){
+	public void displayClickerCounter(View view, String message){
 		// go to clicker with the name specified by this button
 		Intent intent = new Intent(this, DisplayCounter.class);
-		Button selectedCounter = (Button) findViewById(R.id.createCounterButton);
-	    String message = selectedCounter.getText().toString();
 	    intent.putExtra(EXTRA_MESSAGE, message);
 	    startActivity(intent);
 	}

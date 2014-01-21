@@ -14,21 +14,11 @@
         android:layout_height="wrap_content"
         android:text="@string/clickerCounterTitle" />
 
-    <Button
-        android:id="@+id/createCounterButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="38dp"
-        android:text="@string/newCounterButton"
-        android:onClick="newClickerCounter" />
-
     <ListView
         android:id="@+id/counterListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/createCounterButton"
+        android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true" >
 
     </ListView>

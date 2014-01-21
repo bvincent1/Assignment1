@@ -11,5 +11,7 @@
     <string name="edit">Edit</string>
     <string name="changeName">Change Clicker Counter Name</string>
     <string name="placeHolder">LOL NOOB</string>
+    <string name="deleteButton">Delete</string>
+    <string name="resetButton">Reset</string>
 
 </resources>

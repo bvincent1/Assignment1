@@ -58,6 +58,20 @@ public class DisplayCounter extends Activity {
 		System.out.println("shutdown");
 	}
 
+	public void deleteClicker(View view){
+		// TODO add clicker delete button
+		System.out.println("delete");
+
+	}
+
+	public void resetClicker(View view){
+		System.out.println("reset");
+		Button ClickerCounter = (Button) findViewById(R.id.counterButton);
+		ClickerCounter.setTag(1);
+		setClickerCount(0);
+		ClickerCounter.setText(Integer.toString(ClickerCount));
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
