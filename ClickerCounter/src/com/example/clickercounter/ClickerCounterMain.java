@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ClickerCounterMain extends Activity {
     public final static String EXTRA_MESSAGE = "com.example.CLickerCounter.MESSAGE";
@@ -37,6 +40,13 @@ public class ClickerCounterMain extends Activity {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, myStringArray);
 		ListView counterList = (ListView) findViewById(R.id.counterListView);
 		counterList.setAdapter(adapter);
+
+		counterList.setOnItemClickListener(new OnItemClickListener() {
+	        public void onItemClick(AdapterView<?> parent, View view,
+	                int position, long id) {
+	        	System.out.println("clicked");
+	        }
+	    });
 	}
 	
 	public void newClickerCounter(View view){

@@ -25,7 +25,7 @@ public class DisplayCounter extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_counter);
 		
-		//get intent
+		//get intent & message
 		Intent intent = getIntent();
 		counterName = intent.getStringExtra(ClickerCounterMain.EXTRA_MESSAGE);
 		System.out.println(counterName);
@@ -36,8 +36,16 @@ public class DisplayCounter extends Activity {
 	protected void onResume(){
 		super.onResume();
 		
+		// TODO add file check to see if we need a new name or we are searching for an existing one
+		// get name and check to see if we need to generate new name or import old one
 		EditText clickerName = (EditText) findViewById(R.id.clikerCounterName);
 		clickerName.setHint(counterName);
+	}
+
+	@Override
+	protected void onPause(){
+		super.onPause();
+		// TODO add file saver to write to file any changes upon pausing
 	}
 
 	public void incrementCounter(View view){
