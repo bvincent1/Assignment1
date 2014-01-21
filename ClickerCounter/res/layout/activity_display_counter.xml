@@ -17,26 +17,15 @@
         android:onClick="incrementCounter"
         android:text="@string/clickerCount" />
 
-    <TextView
-        android:id="@+id/displyCounterName"
+    <EditText
+        android:id="@+id/clikerCounterName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/newCounterButton"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/editCounterButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/displyCounterName"
-        android:layout_alignBottom="@+id/displyCounterName"
-        android:layout_toRightOf="@+id/counterButton"
-        android:text="@string/edit"
-        android:onClick="editName" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:hint="@string/placeHolder" >
+    </EditText>
 
 </RelativeLayout>

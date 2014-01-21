@@ -9,6 +9,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="clickerCount">0</string>
     <string name="edit">Edit</string>
-    <string name="title_activity_edit_counter_name">EditCounterName</string>
+    <string name="changeName">Change Clicker Counter Name</string>
+    <string name="placeHolder">LOL NOOB</string>
 
 </resources>
