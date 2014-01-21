@@ -8,10 +8,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class ClickerCounterMain extends Activity {
     public final static String EXTRA_MESSAGE = "com.example.CLickerCounter.MESSAGE";
@@ -42,10 +40,10 @@ public class ClickerCounterMain extends Activity {
 		counterList = (ListView) findViewById(R.id.counterListView);
 		counterList.setAdapter(adapter);
 
+		// set listener for list view and goto display counter activity
 		counterList.setOnItemClickListener(new OnItemClickListener() {
 	        public void onItemClick(AdapterView<?> parent, View view,
 	                int position, long id) {
-	        	System.out.println("clicked");
 	        	String selectedFromList = (String) counterList.getItemAtPosition(position);
 	        	System.out.println(selectedFromList);
 	        	
@@ -55,7 +53,7 @@ public class ClickerCounterMain extends Activity {
 	}
 	
 	public void displayClickerCounter(View view, String message){
-		// go to clicker with the name specified by this button
+		// go to clicker display activity, which will load the clicker
 		Intent intent = new Intent(this, DisplayCounter.class);
 	    intent.putExtra(EXTRA_MESSAGE, message);
 	    startActivity(intent);

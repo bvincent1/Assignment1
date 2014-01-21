@@ -26,6 +26,10 @@
             android:name="com.example.clickercounter.DisplayCounter"
             android:label="@string/title_activity_display_counter" >
         </activity>
+        <activity
+            android:name="com.example.clickercounter.ClickerCounterStats"
+            android:label="@string/title_activity_clicker_counter_stats" >
+        </activity>
     </application>
 
 </manifest>

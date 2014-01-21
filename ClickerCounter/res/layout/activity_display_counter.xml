@@ -49,4 +49,14 @@
         android:text="@string/resetButton"
         android:onClick="resetClicker" />
 
+    <Button
+        android:id="@+id/statsActivityButon"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/resetClickerButton"
+        android:layout_centerHorizontal="true"
+        android:text="@string/statsTitle"
+        android:onClick="getStatistics"/>
+
 </RelativeLayout>

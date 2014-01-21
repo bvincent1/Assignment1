@@ -13,5 +13,7 @@
     <string name="placeHolder">LOL NOOB</string>
     <string name="deleteButton">Delete</string>
     <string name="resetButton">Reset</string>
+    <string name="statsTitle">Statistics</string>
+    <string name="title_activity_clicker_counter_stats">ClickerCounterStats</string>
 
 </resources>
