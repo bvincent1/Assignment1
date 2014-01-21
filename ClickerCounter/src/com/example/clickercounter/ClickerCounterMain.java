@@ -35,16 +35,19 @@ public class ClickerCounterMain extends Activity {
 	@Override
 	 protected void onResume () {
 		super.onResume();
+		// TODO build array on clicker counter names, or fill with new ones
 		String[] myStringArray = {"New Counter +","test1", "test2"};
 	
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, myStringArray);
-		ListView counterList = (ListView) findViewById(R.id.counterListView);
+		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, myStringArray);
+		counterList = (ListView) findViewById(R.id.counterListView);
 		counterList.setAdapter(adapter);
 
 		counterList.setOnItemClickListener(new OnItemClickListener() {
 	        public void onItemClick(AdapterView<?> parent, View view,
 	                int position, long id) {
 	        	System.out.println("clicked");
+	        	String selectedFromList = (String) counterList.getItemAtPosition(position);
+	        	System.out.println(selectedFromList);
 	        }
 	    });
 	}
