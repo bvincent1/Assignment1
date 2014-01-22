@@ -15,6 +15,10 @@ public class ClickerCounterModel {
 		this.clickerName = clickerName;
 		this.clickerCount = 0;
 	}
+	
+	public void incrementClickerCount(){
+		this.clickerCount += 1;
+	}
 
 	/** getters and setters */
 	public ArrayList<Date> getClickerTimestamps() {
