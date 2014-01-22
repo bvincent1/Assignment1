@@ -1,5 +1,8 @@
 package com.example.clickercounter;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,9 +26,12 @@ public class ClickerCounterMain extends Activity {
 		setContentView(R.layout.activity_clicker_counter_main);
 		
 		// TODO build array on clicker counter names, or fill with new ones
-		String[] myStringArray = {"New Counter +","test1", "test2"};
-	
-		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, myStringArray);
+		ArrayList<String> myArrayString = new ArrayList<String>();
+		myArrayString.add("New Counter +");
+		myArrayString.add("test1");
+		myArrayString.add("test2");
+		Collections.sort(myArrayString, String.CASE_INSENSITIVE_ORDER);
+		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, myArrayString);
 		counterList = (ListView) findViewById(R.id.counterListView);
 		counterList.setAdapter(adapter);
 

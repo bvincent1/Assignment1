@@ -22,7 +22,7 @@ public class DisplayCounter extends Activity {
 
     public final static String EXTRA_MESSAGE = "com.example.CLickerCounter.MESSAGE";
 	public ClickerCounterModel clickerCountObject;
-	public final String filename = "ClickerCounter.sav"; 
+	public final String filename = "ClickerCounter.sav";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,9 @@ public class DisplayCounter extends Activity {
 		
 		ClickerCounterModel[] temp = makeClickerModelArray(3);
 		writeObjectToFile(temp);
+		ClickerCounterModel[] temp2 = readObjectFromFile();
+		
+		System.out.println("lol"+temp2[1].getClickerCount());
 		
 		
 		clickerCountObject = new ClickerCounterModel(tempCounterName);
@@ -80,6 +83,8 @@ public class DisplayCounter extends Activity {
 	    startActivity(intent);
 	}
 	
+	
+	// needs to be removed *************************************************
 	public ClickerCounterModel[] makeClickerModelArray(int num){
 		// make array of clicker counter model objects
 		ClickerCounterModel[] tempObject = new ClickerCounterModel[num];
