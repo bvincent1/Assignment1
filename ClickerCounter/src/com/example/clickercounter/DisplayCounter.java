@@ -65,19 +65,6 @@ public class DisplayCounter extends Activity {
 		//setCounterName(clickerName);
 	}
 
-	public void deleteClicker(View view){
-		// TODO add clicker delete button
-		System.out.println("delete");
-	}
-
-	public void resetClicker(View view){
-		System.out.println("reset");
-		Button ClickerCounter = (Button) findViewById(R.id.counterButton);
-		ClickerCounter.setTag(1);
-		setClickerCount(0);
-		ClickerCounter.setText(Integer.toString(ClickerCount));
-	}
-
 	public void getStatistics(View view){
 		// go to clicker display activity, which will load the clicker
 		Intent intent = new Intent(this, ClickerCounterStats.class);

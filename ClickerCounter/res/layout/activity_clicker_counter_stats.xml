@@ -9,8 +9,32 @@
     tools:context=".ClickerCounterStats" >
 
     <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/statsTitle" />
+        android:text="@string/toolsTitle" />
+
+    <Button
+        android:id="@+id/deleteClickerButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="17dp"
+        android:layout_toRightOf="@+id/textView1"
+        android:onClick="deleteClicker"
+        android:text="@string/deleteButton" />
+
+    <Button
+        android:id="@+id/resetClickerButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/deleteClickerButton"
+        android:layout_alignBottom="@+id/deleteClickerButton"
+        android:layout_marginLeft="34dp"
+        android:layout_toRightOf="@+id/deleteClickerButton"
+        android:onClick="resetClicker"
+        android:text="@string/resetButton" />
 
 </RelativeLayout>

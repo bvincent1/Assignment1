@@ -29,34 +29,14 @@
     </EditText>
 
     <Button
-        android:id="@+id/deleteClickerButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/clikerCounterName"
-        android:layout_centerHorizontal="true"
-        android:text="@string/deleteButton"
-        android:onClick="deleteClicker" />
-
-    <Button
-        android:id="@+id/resetClickerButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="19dp"
-        android:text="@string/resetButton"
-        android:onClick="resetClicker" />
-
-    <Button
         android:id="@+id/statsActivityButon"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/resetClickerButton"
-        android:layout_centerHorizontal="true"
-        android:text="@string/statsTitle"
-        android:onClick="getStatistics"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/counterButton"
+        android:layout_marginBottom="20dp"
+        android:onClick="getStatistics"
+        android:text="@string/toolsTitle" />
 
 </RelativeLayout>
