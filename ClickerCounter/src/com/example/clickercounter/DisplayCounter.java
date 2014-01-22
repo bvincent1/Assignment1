@@ -38,9 +38,8 @@ public class DisplayCounter extends Activity {
 		// get name and check to see if we need to generate new name or import old one
 		
 		ClickerCounterModel[] temp = makeClickerModelArray(3);
-		System.out.println(temp[0].getClickerName());
-		Gson gson = new Gson();
-		String input = gson.toJson(temp);
+		writeObjectToFile(temp);
+		
 		
 		clickerCountObject = new ClickerCounterModel(tempCounterName);
 		
@@ -91,7 +90,7 @@ public class DisplayCounter extends Activity {
 		return tempObject;
 	}
 
-	public ClickerCounterModel readObjectFromFile(){
+	public ClickerCounterModel[] readObjectFromFile(){
 		// read in ClickerCounterModel gson type from file
 		StringBuilder sb = new StringBuilder();
 		try{
@@ -112,11 +111,11 @@ public class DisplayCounter extends Activity {
 		// use Gson to convert it into and object
 		String json = sb.toString();
 		Gson gson = new Gson();
-		ClickerCounterModel object = gson.fromJson(json, ClickerCounterModel.class);
+		ClickerCounterModel[] object = gson.fromJson(json, ClickerCounterModel[].class);
 		return object;
 	}
 
-	public void writeToFile(ClickerCounterModel temp){
+	public void writeObjectToFile(ClickerCounterModel[] temp){
 		// convert from object to gson and write to file
 		try {
 			Gson gson = new Gson();
