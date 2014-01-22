@@ -1,10 +1,10 @@
 package com.example.clickercounter;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 
 public class ClickerCounterStats extends Activity {
 
@@ -28,9 +28,11 @@ public class ClickerCounterStats extends Activity {
 
 	public void resetClicker(View view){
 		System.out.println("reset");
-		Button ClickerCounter = (Button) findViewById(R.id.counterButton);
-		ClickerCounter.setTag(1);
-		//setClickerCount(0);
-		//ClickerCounter.setText(Integer.toString(ClickerCount));
+		// TODO call the reset clicker reset method
+		
+		// restart the application
+		Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
+		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(i);
 	}
 }

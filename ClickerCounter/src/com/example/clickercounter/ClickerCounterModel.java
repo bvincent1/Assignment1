@@ -5,11 +5,18 @@ import java.util.Date;
 
 public class ClickerCounterModel {
 	
-	protected int clickerCount = 0;
+	protected int clickerCount;
 	protected String clickerName;
 	protected ArrayList<Date> clickerTimestamps;
-	
-	
+
+	// assigns clicker counter name and sets count to 0
+	public ClickerCounterModel(String clickerName) {
+		super();
+		this.clickerName = clickerName;
+		this.clickerCount = 0;
+	}
+
+	/** getters and setters */
 	public ArrayList<Date> getClickerTimestamps() {
 		return clickerTimestamps;
 	}
@@ -27,5 +34,10 @@ public class ClickerCounterModel {
 	}
 	public void setClickerName(String clickerName) {
 		this.clickerName = clickerName;
+	}
+	
+	public void resetCount(){
+		this.clickerCount = 0;
+		this.clickerTimestamps.clear();
 	}
 }
