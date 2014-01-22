@@ -24,15 +24,15 @@ public class ClickerCounterStats extends Activity {
 	public void deleteClicker(View view){
 		// TODO add clicker delete button
 		System.out.println("delete");
-	}
-
-	public void resetClicker(View view){
-		System.out.println("reset");
-		// TODO call the reset clicker reset method
 		
 		// restart the application
 		Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
+	}
+
+	public void resetClicker(View view){
+		System.out.println("reset");
+		// TODO call the reset clicker reset method
 	}
 }
