@@ -40,6 +40,11 @@ public class DisplayCounter extends Activity {
 		counterName = intent.getStringExtra(ClickerCounterMain.EXTRA_MESSAGE);
 		System.out.println(counterName);
 		
+		// TODO add file check to see if we need a new name or we are searching for an existing one
+		// get name and check to see if we need to generate new name or import old one
+		EditText clickerName = (EditText) findViewById(R.id.clikerCounterName);
+		clickerName.setHint(counterName);
+		
 	}
 
 	@Override
@@ -49,33 +54,20 @@ public class DisplayCounter extends Activity {
 		return true;
 	}
 
-	@Override
-	protected void onResume(){
-		super.onResume();
-		
-		// TODO add file check to see if we need a new name or we are searching for an existing one
-		// get name and check to see if we need to generate new name or import old one
-		EditText clickerName = (EditText) findViewById(R.id.clikerCounterName);
-		clickerName.setHint(counterName);
-	}
-
-	@Override
-	protected void onPause(){
-		super.onPause();
-		// TODO add file saver to write to file any changes upon pausing
-	}
-
 	public void incrementCounter(View view){
 		System.out.println("increment");
 		Button ClickerCounter = (Button) findViewById(R.id.counterButton);
 		ClickerCounter.setTag(1);
 		ClickerCounter.setText(Integer.toString(++ClickerCount));
+		
+		// TODO add file saver to write to file any changes upon pausing
+		EditText clickerName = (EditText) findViewById(R.id.clikerCounterName);
+		//setCounterName(clickerName);
 	}
 
 	public void deleteClicker(View view){
 		// TODO add clicker delete button
 		System.out.println("delete");
-
 	}
 
 	public void resetClicker(View view){

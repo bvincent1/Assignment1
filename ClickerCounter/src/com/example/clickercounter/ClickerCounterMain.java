@@ -21,18 +21,7 @@ public class ClickerCounterMain extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_clicker_counter_main);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.clicker_counter_main, menu);
-		return true;
-	}
-	
-	@Override
-	 protected void onResume () {
-		super.onResume();
+		
 		// TODO build array on clicker counter names, or fill with new ones
 		String[] myStringArray = {"New Counter +","test1", "test2"};
 	
@@ -50,6 +39,13 @@ public class ClickerCounterMain extends Activity {
 	        	displayClickerCounter(view, selectedFromList);
 	        }
 	    });
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.clicker_counter_main, menu);
+		return true;
 	}
 	
 	public void displayClickerCounter(View view, String message){
