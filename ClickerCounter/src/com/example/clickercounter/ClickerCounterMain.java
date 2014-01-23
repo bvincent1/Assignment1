@@ -1,9 +1,18 @@
 package com.example.clickercounter;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.google.gson.Gson;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,18 +28,39 @@ public class ClickerCounterMain extends Activity {
     
     private ListView counterList;
     private ListAdapter adapter;
+    protected Context mContext;
+	public final String filename = "ClickerCounter.sav";
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_clicker_counter_main);
 		
+		ClickerCounterModel[] objectArray = makeClickerModelArray(1);
+		
+		writeObjectToFile(objectArray);
+		
+	}
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
 		// TODO build array on clicker counter names, or fill with new ones
-		ArrayList<String> myArrayString = new ArrayList<String>();
-		myArrayString.add("New Counter +");
+		// build clicker model object array
+		
+		ArrayList<String> myArrayString = new ArrayList<String>();		
+		ClickerCounterModel[] objectArray = readObjectFromFile();
+		
+		
+		for (int i = 0;i< objectArray.length;i++){
+			myArrayString.add(objectArray[i].getClickerName());
+		}
+		
 		myArrayString.add("test1");
-		myArrayString.add("test2");
-		Collections.sort(myArrayString, String.CASE_INSENSITIVE_ORDER);
+		//Collections.sort(myArrayString, String.CASE_INSENSITIVE_ORDER);
+		
+		// build array list adapter with counters as source
 		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, myArrayString);
 		counterList = (ListView) findViewById(R.id.counterListView);
 		counterList.setAdapter(adapter);
@@ -59,6 +89,59 @@ public class ClickerCounterMain extends Activity {
 		Intent intent = new Intent(this, DisplayCounter.class);
 	    intent.putExtra(EXTRA_MESSAGE, message);
 	    startActivity(intent);
+	}
+
+	public ClickerCounterModel[] makeClickerModelArray(int num){
+		// make array of clicker counter model objects
+		ClickerCounterModel[] tempObject = new ClickerCounterModel[num];
+		for(int i = 0; i < num; i++){
+			if (i>0){
+				tempObject[i] = new ClickerCounterModel("New Counter +"+i);
+			}
+			else{
+				tempObject[i] = new ClickerCounterModel("New Counter +");
+			}
+			tempObject[i].setClickerCount(i);
+		}
+		return tempObject;
+	}
+	
+	public ClickerCounterModel[] readObjectFromFile(){
+		// read in ClickerCounterModel gson type from file
+		StringBuilder sb = new StringBuilder();
+		try{
+			FileInputStream inputStream = openFileInput(filename);
+			InputStreamReader isr = new InputStreamReader(inputStream);
+			BufferedReader bufferedReader = new BufferedReader(isr);
+			String line;
+			while ((line = bufferedReader.readLine()) != null) {
+				sb.append(line);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// use Gson to convert it into and object
+		String json = sb.toString();
+		Gson gson = new Gson();
+		ClickerCounterModel[] object = gson.fromJson(json, ClickerCounterModel[].class);
+		return object;
+	}
+
+	public void writeObjectToFile(ClickerCounterModel[] temp){
+		// convert from object to gson and write to file
+		try {
+			Gson gson = new Gson();
+			String string = gson.toJson(temp);
+			FileOutputStream outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+			outputStream.write(string.getBytes());
+			outputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

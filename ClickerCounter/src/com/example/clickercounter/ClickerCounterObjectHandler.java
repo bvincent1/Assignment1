@@ -12,16 +12,15 @@ import android.content.Context;
 import com.google.gson.Gson;
 
 public class ClickerCounterObjectHandler {
-	protected Context mContext;
+	private Context mContext;
 	public final String filename = "ClickerCounter.sav";
-	private ClickerCounterModel[] objectArray = null;
-	
+
 	// need personal context object
 	public ClickerCounterObjectHandler(Context c) {
 		mContext = c;
 	}
 	
-	public void readObjectFromFile(){
+	public ClickerCounterModel[] readObjectFromFile(){
 		// read in ClickerCounterModel gson type from file
 		StringBuilder sb = new StringBuilder();
 		try{
@@ -42,10 +41,10 @@ public class ClickerCounterObjectHandler {
 		// use Gson to convert it into and object
 		String json = sb.toString();
 		Gson gson = new Gson();
-		this.objectArray = gson.fromJson(json, ClickerCounterModel[].class);
+		return gson.fromJson(json, ClickerCounterModel[].class);
 	}
 
-	public void writeObjectToFile(){
+	public void writeObjectToFile(ClickerCounterModel[] objectArray){
 		// convert from object to gson and write to file
 		try {
 			Gson gson = new Gson();
@@ -62,19 +61,4 @@ public class ClickerCounterObjectHandler {
 		}
 	}
 	
-	public ClickerCounterModel getObjectModel(String name){
-		if (this.objectArray == null){
-			readObjectFromFile(); 
-		}
-		for(int i = 0; i < this.objectArray.length; i++){
-			if (this.objectArray[i].getClickerName().equals(name) == true){
-				return this.objectArray[i];
-			}
-		}
-		return null;
-	}
-	
-	public void saveObjectModel(String name){
-		
-	}
 }

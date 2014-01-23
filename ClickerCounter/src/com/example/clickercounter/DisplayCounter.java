@@ -21,7 +21,7 @@ import com.google.gson.Gson;
 public class DisplayCounter extends Activity {
 
     public final static String EXTRA_MESSAGE = "com.example.CLickerCounter.MESSAGE";
-	public ClickerCounterModel clickerCountObject;
+	public ClickerCounterModel clickerCountObject = null;
 	public final String filename = "ClickerCounter.sav";
 
 	@Override
@@ -34,20 +34,34 @@ public class DisplayCounter extends Activity {
 		String tempCounterName = intent.getStringExtra(ClickerCounterMain.EXTRA_MESSAGE);
 		System.out.println(tempCounterName);
 		
-		// TODO add file check to see if we need a new name or we are searching for an existing one
-		// get name and check to see if we need to generate new name or import old one
+		// TODO add file check to see if we need a new name or we are searching for an existing one\
 		
-		ClickerCounterModel[] temp = makeClickerModelArray(3);
-		writeObjectToFile(temp);
-		ClickerCounterModel[] temp2 = readObjectFromFile();
+		// get counter object array and single it out to the specific element from the array
+		/*
+		ClickerCounterModel[] tempObjectArray = readObjectFromFile();
+		for (int i = 0; i < tempObjectArray.length; i++){
+			if (tempObjectArray[i].getClickerName().equals(tempCounterName)){
+				clickerCountObject = tempObjectArray[i];
+			}
+		}
+		*/
+		ClickerCounterModel[] tempObjectArray = readObjectFromFile();
+		for (int i = 0; i < tempObjectArray.length; i++){
+			System.out.println(tempObjectArray[i].getClickerName().equals(tempCounterName));
+		}
 		
-		System.out.println("lol"+temp2[1].getClickerCount());
-		
-		
-		clickerCountObject = new ClickerCounterModel(tempCounterName);
-		
+		clickerCountObject = tempObjectArray[0];
+		System.out.println("lol"+clickerCountObject.getClickerCount());
+				
 		EditText clickerName = (EditText) findViewById(R.id.clikerCounterName);
 		clickerName.setHint(clickerCountObject.getClickerName());
+	}
+	
+	protected void onResume(){
+		super.onResume();
+		// get button element and show updated value
+		Button clickerCounterButton = (Button) findViewById(R.id.counterButton);
+		clickerCounterButton.setText(Integer.toString(clickerCountObject.getClickerCount()));
 	}
 
 	@Override
@@ -89,7 +103,7 @@ public class DisplayCounter extends Activity {
 		// make array of clicker counter model objects
 		ClickerCounterModel[] tempObject = new ClickerCounterModel[num];
 		for(int i = 0; i < num; i++){
-			tempObject[i] = new ClickerCounterModel("test"+i);
+			tempObject[i] = new ClickerCounterModel("New Counter +");
 			tempObject[i].setClickerCount(i);
 		}
 		return tempObject;
