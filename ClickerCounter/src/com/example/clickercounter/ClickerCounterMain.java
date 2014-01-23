@@ -51,13 +51,36 @@ public class ClickerCounterMain extends Activity {
 		
 		ArrayList<String> myArrayString = new ArrayList<String>();		
 		ClickerCounterModel[] objectArray = readObjectFromFile();
-		
+		/*
+		if (objectArray[0].getClickerName() != "New Counter +"){
+			int num = objectArray.length+1;
+			System.out.println("adding");
+			
+			// create copy of object array and skip entry to which we want to remove
+			ClickerCounterModel[] tempObjectArray = new ClickerCounterModel[num];
+			for(int i = 0; i < num; i++){
+				if (i == 0){
+					tempObjectArray[i] = new ClickerCounterModel("New Counter +");
+					tempObjectArray[i].setClickerCount(0);
+				}
+				else{
+					tempObjectArray[i] = new ClickerCounterModel(objectArray[i].getClickerName());
+					tempObjectArray[i].setClickerCount(objectArray[i].getClickerCount());
+					tempObjectArray[i].setClickerTimestamps(objectArray[i].getClickerTimestamps());
+
+				}
+			}
+			// reassign object to new array
+			writeObjectToFile(tempObjectArray);
+			objectArray = tempObjectArray;
+
+		}
+		*/
 		
 		for (int i = 0;i< objectArray.length;i++){
 			myArrayString.add(objectArray[i].getClickerName());
 		}
 		
-		myArrayString.add("test1");
 		//Collections.sort(myArrayString, String.CASE_INSENSITIVE_ORDER);
 		
 		// build array list adapter with counters as source

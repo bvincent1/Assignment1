@@ -21,8 +21,9 @@ import com.google.gson.Gson;
 public class DisplayCounter extends Activity {
 
     public final static String EXTRA_MESSAGE = "com.example.CLickerCounter.MESSAGE";
+    public final String filename = "ClickerCounter.sav";
 	public ClickerCounterModel clickerCountObject = null;
-	public final String filename = "ClickerCounter.sav";
+	public ClickerCounterModel[] objectArray = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,32 +35,26 @@ public class DisplayCounter extends Activity {
 		String tempCounterName = intent.getStringExtra(ClickerCounterMain.EXTRA_MESSAGE);
 		System.out.println(tempCounterName);
 		
-		// TODO add file check to see if we need a new name or we are searching for an existing one\
-		
 		// get counter object array and single it out to the specific element from the array
-		/*
-		ClickerCounterModel[] tempObjectArray = readObjectFromFile();
-		for (int i = 0; i < tempObjectArray.length; i++){
-			if (tempObjectArray[i].getClickerName().equals(tempCounterName)){
-				clickerCountObject = tempObjectArray[i];
+		objectArray = readObjectFromFile();
+		for (int i = 0; i < objectArray.length; i++){
+			if (objectArray[i].getClickerName().equals(tempCounterName)){
+				clickerCountObject = objectArray[i];
 			}
-		}
-		*/
-		ClickerCounterModel[] tempObjectArray = readObjectFromFile();
-		for (int i = 0; i < tempObjectArray.length; i++){
-			System.out.println(tempObjectArray[i].getClickerName().equals(tempCounterName));
-		}
-		
-		clickerCountObject = tempObjectArray[0];
-		System.out.println("lol"+clickerCountObject.getClickerCount());
-				
+		}				
 		EditText clickerName = (EditText) findViewById(R.id.clikerCounterName);
-		clickerName.setHint(clickerCountObject.getClickerName());
+		clickerName.setText(clickerCountObject.getClickerName());
 	}
 	
 	protected void onResume(){
 		super.onResume();
 		// get button element and show updated value
+		objectArray = readObjectFromFile();
+		for (int i = 0; i < objectArray.length; i++){
+			if (objectArray[i].getClickerName().equals(clickerCountObject.getClickerName())){
+				clickerCountObject = objectArray[i];
+			}
+		}
 		Button clickerCounterButton = (Button) findViewById(R.id.counterButton);
 		clickerCounterButton.setText(Integer.toString(clickerCountObject.getClickerCount()));
 	}
@@ -85,9 +80,12 @@ public class DisplayCounter extends Activity {
 		
 		// check if name has changed, if so update object
 		EditText newName = (EditText) findViewById(R.id.clikerCounterName);
-		if (clickerCountObject.getClickerName().compareTo(newName.toString()) != 0){
-			clickerCountObject.setClickerName(newName.toString());
+		if (clickerCountObject.getClickerName().compareTo(newName.getText().toString()) != 0){
+			clickerCountObject.setClickerName(newName.getText().toString());
 		}
+
+		// save changes
+		writeObjectToFile(objectArray);
 	}
 
 	public void getStatistics(View view){
