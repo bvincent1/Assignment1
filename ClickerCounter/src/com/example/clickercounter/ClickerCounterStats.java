@@ -135,6 +135,8 @@ public class ClickerCounterStats extends Activity {
 		ArrayList<String> myArrayString = new ArrayList<String>();
 		Calendar currDate = Calendar.getInstance();
 		for (int i = 0; i < clickerCountObject.getClickerTimestamps().size();i++){
+			System.out.println(
+					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.SECOND));
 			if (currDate.get(Calendar.MINUTE) -1 < 
 					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.MINUTE) &&
 					currDate.get(Calendar.MINUTE) <
