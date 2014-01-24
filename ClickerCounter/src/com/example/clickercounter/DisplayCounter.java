@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Calendar;
 
 import android.app.Activity;
 import android.content.Context;
@@ -76,6 +77,8 @@ public class DisplayCounter extends Activity {
 		
 		// increment clicker count
 		clickerCountObject.incrementClickerCount();
+		
+		System.out.println(clickerCountObject.getClickerTimestamps().get(clickerCountObject.getClickerCount()-1).get(Calendar.SECOND));
 		
 		// get button element and show updated value
 		Button ClickerCounter = (Button) findViewById(R.id.counterButton);

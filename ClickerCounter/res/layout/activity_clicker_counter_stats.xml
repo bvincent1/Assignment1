@@ -36,18 +36,6 @@
         android:onClick="deleteClicker"
         android:text="@string/deleteButton" />
 
-    <Button
-        android:id="@+id/resetClickerButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="38dp"
-        android:layout_marginLeft="40dp"
-        android:layout_toRightOf="@+id/deleteClickerButton"
-        android:onClick="resetClicker"
-        android:text="@string/resetButton" />
-
     <TextView
         android:id="@+id/textNameView"
         android:layout_width="wrap_content"
@@ -56,5 +44,17 @@
         android:layout_centerHorizontal="true"
         android:text="@string/placeHolder"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/resetClickerButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/listStats"
+        android:layout_marginBottom="19dp"
+        android:layout_marginRight="42dp"
+        android:onClick="resetClicker"
+        android:text="@string/resetButton" />
 
 </RelativeLayout>

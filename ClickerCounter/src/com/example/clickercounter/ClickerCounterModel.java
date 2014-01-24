@@ -1,30 +1,32 @@
 package com.example.clickercounter;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 public class ClickerCounterModel {
 	
-	protected int clickerCount;
+	protected int clickerCount = 0;
 	protected String clickerName;
-	protected ArrayList<Date> clickerTimestamps;
+	protected ArrayList<Calendar> clickerTimestamps;
 
 	// assigns clicker counter name and sets count to 0
 	public ClickerCounterModel(String clickerName) {
 		super();
 		this.clickerName = clickerName;
 		this.clickerCount = 0;
+		this.clickerTimestamps = new ArrayList<Calendar>();
 	}
 	
 	public void incrementClickerCount(){
 		this.clickerCount += 1;
+		this.clickerTimestamps.add(Calendar.getInstance());
 	}
 
 	/** getters and setters */
-	public ArrayList<Date> getClickerTimestamps() {
+	public ArrayList<Calendar> getClickerTimestamps() {
 		return clickerTimestamps;
 	}
-	public void setClickerTimestamps(ArrayList<Date> clickerTimestamps) {
+	public void setClickerTimestamps(ArrayList<Calendar> clickerTimestamps) {
 		this.clickerTimestamps = clickerTimestamps;
 	}
 	public int getClickerCount() {

@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +15,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -26,20 +30,25 @@ public class ClickerCounterStats extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_clicker_counter_stats);
-		
+		// receive counter name
 		Intent intent = getIntent();
 		String tempCounterName = intent.getStringExtra(ClickerCounterMain.EXTRA_MESSAGE);
 		System.out.println(tempCounterName);
-		
+		// build counter object from file
 		objectArray = readObjectFromFile();
 		for (int i = 0; i < objectArray.length; i++){
 			if (objectArray[i].getClickerName().equals(tempCounterName)){
 				clickerCountObject = objectArray[i];
 			}
 		}
-		
+		// set title name
 		TextView counterName = (TextView) findViewById(R.id.textNameView);
-		counterName.setHint(tempCounterName);
+		counterName.setText(tempCounterName);
+		ArrayList <String> temp = null;
+		temp =  getCountStatics();
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,temp);
+		ListView counterList = (ListView) findViewById(R.id.listStats);
+		counterList.setAdapter(adapter);
 	}
 
 	@Override
@@ -116,5 +125,39 @@ public class ClickerCounterStats extends Activity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public ArrayList<String> getCountStatics(){
+		// build statistics array
+		int countsPerMinute = 0;
+		int countsPerHour = 0;
+		int countsPerMonth = 0;
+		ArrayList<String> myArrayString = new ArrayList<String>();
+		Calendar currDate = Calendar.getInstance();
+		for (int i = 0; i < clickerCountObject.getClickerTimestamps().size();i++){
+			if (currDate.get(Calendar.MINUTE) -1 < 
+					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.MINUTE) &&
+					currDate.get(Calendar.MINUTE) <
+					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.MINUTE)){
+				countsPerMinute += 1;
+			}
+			if (currDate.get(Calendar.HOUR_OF_DAY) - 1 < 
+					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.HOUR_OF_DAY) &&
+					currDate.get(Calendar.HOUR_OF_DAY) < 
+					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.HOUR_OF_DAY)){
+				countsPerHour += 1;
+			}
+			if ((currDate.get(Calendar.DAY_OF_MONTH) - 1 < 
+					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.DAY_OF_MONTH)) &&
+					(currDate.get(Calendar.DAY_OF_MONTH) < 
+					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.DAY_OF_MONTH))){
+				countsPerMonth += 1;
+			}
+		}
+		myArrayString.add("Counts per Minute "+Integer.toString(countsPerMinute));
+		myArrayString.add("Counts per Hour "+Integer.toString(countsPerHour));
+		myArrayString.add("Counts per Day "+Integer.toString(countsPerMonth));
+		
+		return myArrayString;
 	}
 }

@@ -7,9 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
-
-import com.google.gson.Gson;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,6 +19,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.google.gson.Gson;
 
 public class ClickerCounterMain extends Activity {
     public final static String EXTRA_MESSAGE = "com.example.CLickerCounter.MESSAGE";
@@ -37,10 +36,11 @@ public class ClickerCounterMain extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_clicker_counter_main);
 		
-		// make default clicker object with "new counter +"
-		ClickerCounterModel[] objectArray = makeClickerModelArray(1);
-		writeObjectToFile(objectArray);
-		
+		if (readObjectFromFile() == null) {
+			// make default clicker object with "new counter +"
+			ClickerCounterModel[] objectArray = makeClickerModelArray(1);
+			writeObjectToFile(objectArray);
+		}
 	}
 	
 	@Override
@@ -64,7 +64,7 @@ public class ClickerCounterMain extends Activity {
 				tempObjectArray[i] = new ClickerCounterModel(objectArray[i-1].getClickerName());
 				tempObjectArray[i].setClickerCount(objectArray[i-1].getClickerCount());
 				// TODO implement time stamps
-				//tempObjectArray[i].setClickerTimestamps(objectArray[i-1].getClickerTimestamps());
+				tempObjectArray[i].setClickerTimestamps(objectArray[i-1].getClickerTimestamps());
 			}
 			// reassign object to new array
 			writeObjectToFile(tempObjectArray);
@@ -119,7 +119,6 @@ public class ClickerCounterMain extends Activity {
 			else{
 				tempObject[i] = new ClickerCounterModel("New Counter +");
 			}
-			tempObject[i].setClickerCount(i);
 		}
 		return tempObject;
 	}
@@ -141,6 +140,10 @@ public class ClickerCounterMain extends Activity {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		// check if generating new files
+		if (sb.equals(null)){
+			return null;
 		}
 		// use Gson to convert it into and object
 		String json = sb.toString();
