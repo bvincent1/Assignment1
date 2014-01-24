@@ -7,6 +7,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+
+import com.google.gson.Gson;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,8 +22,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
-import com.google.gson.Gson;
 
 public class ClickerCounterMain extends Activity {
     public final static String EXTRA_MESSAGE = "com.example.CLickerCounter.MESSAGE";
@@ -37,10 +38,8 @@ public class ClickerCounterMain extends Activity {
 		setContentView(R.layout.activity_clicker_counter_main);
 		
 		// make default clicker object with "new counter +"
-		if (readObjectFromFile() == null){
-			ClickerCounterModel[] objectArray = makeClickerModelArray(1);
-			writeObjectToFile(objectArray);
-		}
+		ClickerCounterModel[] objectArray = makeClickerModelArray(1);
+		writeObjectToFile(objectArray);
 		
 	}
 	
@@ -132,7 +131,7 @@ public class ClickerCounterMain extends Activity {
 			FileInputStream inputStream = openFileInput(filename);
 			InputStreamReader isr = new InputStreamReader(inputStream);
 			BufferedReader bufferedReader = new BufferedReader(isr);
-			String line = null;
+			String line;
 			while ((line = bufferedReader.readLine()) != null) {
 				sb.append(line);
 			}
@@ -144,10 +143,6 @@ public class ClickerCounterMain extends Activity {
 			e.printStackTrace();
 		}
 		// use Gson to convert it into and object
-		if (sb.equals(null)){
-			return null;
-		}
-			
 		String json = sb.toString();
 		Gson gson = new Gson();
 		ClickerCounterModel[] object = gson.fromJson(json, ClickerCounterModel[].class);
