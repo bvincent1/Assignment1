@@ -73,7 +73,7 @@ public class ClickerCounterMain extends Activity {
 		
 		// build ListView array from object array clicker names
 		for (int i = 0;i< objectArray.length;i++){
-			myArrayString.add(objectArray[i].getClickerName());
+			myArrayString.add(objectArray[i].getClickerName()+":"+objectArray[i].getClickerCount());
 		}
 		
 		//Collections.sort(myArrayString, String.CASE_INSENSITIVE_ORDER);
@@ -88,6 +88,7 @@ public class ClickerCounterMain extends Activity {
 	        public void onItemClick(AdapterView<?> parent, View view,
 	                int position, long id) {
 	        	String selectedFromList = (String) counterList.getItemAtPosition(position);
+	        	selectedFromList = selectedFromList.substring(0, selectedFromList.lastIndexOf(":")); 
 	        	System.out.println(selectedFromList);
 	        	// go to display counter activity
 	        	displayClickerCounter(view, selectedFromList);
