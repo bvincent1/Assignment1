@@ -15,5 +15,6 @@
     <string name="resetButton">Reset</string>
     <string name="toolsTitle">Tools</string>
     <string name="title_activity_clicker_counter_stats">ClickerCounterStats</string>
+    <string name="reorderButton">Order</string>
 
 </resources>
