@@ -38,7 +38,6 @@ public class ClickerCounterMain extends Activity {
 		setContentView(R.layout.activity_clicker_counter_main);
 		
 		ClickerCounterModel[] objectArray = makeClickerModelArray(1);
-		
 		writeObjectToFile(objectArray);
 		
 	}
@@ -46,36 +45,33 @@ public class ClickerCounterMain extends Activity {
 	@Override
 	protected void onResume(){
 		super.onResume();
-		// TODO build array on clicker counter names, or fill with new ones
 		// build clicker model object array
-		
 		ArrayList<String> myArrayString = new ArrayList<String>();		
 		ClickerCounterModel[] objectArray = readObjectFromFile();
-		/*
-		if (objectArray[0].getClickerName() != "New Counter +"){
+		
+		// check if we need empty clicker leading the list
+		if (objectArray[0].getClickerName().equals("New Counter +") == false){
 			int num = objectArray.length+1;
 			System.out.println("adding");
+			System.out.println(num);
 			
-			// create copy of object array and skip entry to which we want to remove
+			// insert new empty counter in front of others		
 			ClickerCounterModel[] tempObjectArray = new ClickerCounterModel[num];
-			for(int i = 0; i < num; i++){
-				if (i == 0){
-					tempObjectArray[i] = new ClickerCounterModel("New Counter +");
-					tempObjectArray[i].setClickerCount(0);
-				}
-				else{
-					tempObjectArray[i] = new ClickerCounterModel(objectArray[i].getClickerName());
-					tempObjectArray[i].setClickerCount(objectArray[i].getClickerCount());
-					tempObjectArray[i].setClickerTimestamps(objectArray[i].getClickerTimestamps());
-
-				}
+			tempObjectArray[0] = new ClickerCounterModel("New Counter +");
+			tempObjectArray[0].setClickerCount(0);
+			for(int i = 1; i < num; i++){
+				tempObjectArray[i] = new ClickerCounterModel(objectArray[i-1].getClickerName());
+				tempObjectArray[i].setClickerCount(objectArray[i-1].getClickerCount());
+				// TODO implement time stamps
+				//tempObjectArray[i].setClickerTimestamps(objectArray[i-1].getClickerTimestamps());
 			}
 			// reassign object to new array
 			writeObjectToFile(tempObjectArray);
 			objectArray = tempObjectArray;
+			
 
 		}
-		*/
+		
 		
 		for (int i = 0;i< objectArray.length;i++){
 			myArrayString.add(objectArray[i].getClickerName());
