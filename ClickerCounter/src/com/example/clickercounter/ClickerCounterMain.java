@@ -37,6 +37,7 @@ public class ClickerCounterMain extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_clicker_counter_main);
 		
+		// make default clicker object with "new counter +"
 		ClickerCounterModel[] objectArray = makeClickerModelArray(1);
 		writeObjectToFile(objectArray);
 		
@@ -68,11 +69,9 @@ public class ClickerCounterMain extends Activity {
 			// reassign object to new array
 			writeObjectToFile(tempObjectArray);
 			objectArray = tempObjectArray;
-			
-
 		}
 		
-		
+		// build ListView array from object array clicekr names
 		for (int i = 0;i< objectArray.length;i++){
 			myArrayString.add(objectArray[i].getClickerName());
 		}
@@ -90,7 +89,7 @@ public class ClickerCounterMain extends Activity {
 	                int position, long id) {
 	        	String selectedFromList = (String) counterList.getItemAtPosition(position);
 	        	System.out.println(selectedFromList);
-	        	
+	        	// go to display counter activity
 	        	displayClickerCounter(view, selectedFromList);
 	        }
 	    });
