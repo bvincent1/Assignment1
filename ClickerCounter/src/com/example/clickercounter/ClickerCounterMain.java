@@ -72,7 +72,7 @@ public class ClickerCounterMain extends Activity {
 			objectArray = tempObjectArray;
 		}
 		
-		// build ListView array from object array clicekr names
+		// build ListView array from object array clicker names
 		for (int i = 0;i< objectArray.length;i++){
 			myArrayString.add(objectArray[i].getClickerName());
 		}

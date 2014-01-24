@@ -14,14 +14,25 @@
         android:layout_height="wrap_content"
         android:text="@string/toolsTitle" />
 
+    <ListView
+        android:id="@+id/listStats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/deleteClickerButton"
+        android:layout_below="@+id/textNameView"
+        android:layout_centerHorizontal="true" >
+
+    </ListView>
+
     <Button
         android:id="@+id/deleteClickerButton"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_alignBaseline="@+id/resetClickerButton"
+        android:layout_alignBottom="@+id/resetClickerButton"
+        android:layout_marginLeft="27dp"
+        android:layout_toRightOf="@+id/textView1"
         android:onClick="deleteClicker"
         android:text="@string/deleteButton" />
 
@@ -30,10 +41,20 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/deleteClickerButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="38dp"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@+id/deleteClickerButton"
         android:onClick="resetClicker"
         android:text="@string/resetButton" />
+
+    <TextView
+        android:id="@+id/textNameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:text="@string/placeHolder"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

@@ -10,11 +10,10 @@
     <string name="clickerCount">0</string>
     <string name="edit">Edit</string>
     <string name="changeName">Change Clicker Counter Name</string>
-    <string name="placeHolder">LOL NOOB</string>
+    <string name="placeHolder">Counter Name</string>
     <string name="deleteButton">Delete</string>
     <string name="resetButton">Reset</string>
     <string name="toolsTitle">Tools</string>
     <string name="title_activity_clicker_counter_stats">ClickerCounterStats</string>
     <string name="reorderButton">Order</string>
-
 </resources>

@@ -42,8 +42,13 @@ public class DisplayCounter extends Activity {
 				clickerCountObject = objectArray[i];
 			}
 		}				
-		EditText clickerName = (EditText) findViewById(R.id.clikerCounterName);
-		clickerName.setText(clickerCountObject.getClickerName());
+		EditText clickerName = (EditText) findViewById(R.id.editCounterName);
+		if (clickerCountObject.getClickerName().equals(R.string.newCounterButton)){
+			clickerName.setHint(clickerCountObject.getClickerName());
+		}
+		else{
+			clickerName.setText(clickerCountObject.getClickerName());
+		}
 	}
 	
 	protected void onResume(){
@@ -75,15 +80,12 @@ public class DisplayCounter extends Activity {
 		// get button element and show updated value
 		Button ClickerCounter = (Button) findViewById(R.id.counterButton);
 		ClickerCounter.setText(Integer.toString(clickerCountObject.getClickerCount()));
-		
-		// TODO add file saver to write to file any changes upon pausing
-		
+				
 		// check if name has changed, if so update object
-		EditText newName = (EditText) findViewById(R.id.clikerCounterName);
+		EditText newName = (EditText) findViewById(R.id.editCounterName);
 		if (clickerCountObject.getClickerName().compareTo(newName.getText().toString()) != 0){
 			clickerCountObject.setClickerName(newName.getText().toString());
 		}
-
 		// save changes
 		writeObjectToFile(objectArray);
 	}
