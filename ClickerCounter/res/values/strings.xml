@@ -15,12 +15,5 @@
     <string name="resetButton">Reset</string>
     <string name="toolsTitle">Tools</string>
     <string name="title_activity_clicker_counter_stats">ClickerCounterStats</string>
-<<<<<<< HEAD
-<<<<<<< HEAD
     <string name="reorderButton">Order</string>
-=======
-=======
->>>>>>> parent of 8567919... App now resume from memery properly
-
->>>>>>> parent of 8567919... App now resume from memery properly
 </resources>
