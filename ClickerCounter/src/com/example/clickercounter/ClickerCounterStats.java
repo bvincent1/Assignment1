@@ -84,8 +84,13 @@ public class ClickerCounterStats extends Activity {
 	public void resetClicker(View view){
 		System.out.println("reset");
 		// call the reset clicker reset method and save
-		clickerCountObject.setClickerCount(0); // needs to be switched with clicker rest after implementing dates
+		clickerCountObject.resetCount();
 		writeObjectToFile(objectArray);
+		
+		// restart the application
+		Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
+		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(i);
 		
 	}
 
@@ -128,38 +133,59 @@ public class ClickerCounterStats extends Activity {
 	}
 
 	public ArrayList<String> getCountStatics(){
-		// build statistics array
+		// init local counts for building array
 		int countsPerMinute = 0;
 		int countsPerHour = 0;
+		int countsPerDay = 0;
+		int countsPerWeek = 0;
 		int countsPerMonth = 0;
+		
+		// get a comparison time and start comparing the times against it
 		ArrayList<String> myArrayString = new ArrayList<String>();
 		Calendar currDate = Calendar.getInstance();
 		for (int i = 0; i < clickerCountObject.getClickerTimestamps().size();i++){
 			System.out.println(
-					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.SECOND));
-			if (currDate.get(Calendar.MINUTE) -1 < 
+					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.MINUTE) <= 
+					currDate.get(Calendar.MINUTE));
+			if (currDate.get(Calendar.MINUTE) -1 <= 
 					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.MINUTE) &&
-					currDate.get(Calendar.MINUTE) <
+					currDate.get(Calendar.MINUTE) >=
 					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.MINUTE)){
 				countsPerMinute += 1;
 			}
-			if (currDate.get(Calendar.HOUR_OF_DAY) - 1 < 
+			if (currDate.get(Calendar.HOUR_OF_DAY) - 1 <= 
 					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.HOUR_OF_DAY) &&
-					currDate.get(Calendar.HOUR_OF_DAY) < 
+					currDate.get(Calendar.HOUR_OF_DAY) >= 
 					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.HOUR_OF_DAY)){
 				countsPerHour += 1;
 			}
-			if ((currDate.get(Calendar.DAY_OF_MONTH) - 1 < 
+			if ((currDate.get(Calendar.DAY_OF_MONTH) - 1 <= 
 					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.DAY_OF_MONTH)) &&
-					(currDate.get(Calendar.DAY_OF_MONTH) < 
+					(currDate.get(Calendar.DAY_OF_MONTH) >= 
 					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.DAY_OF_MONTH))){
+				countsPerDay += 1;
+			}
+			if ((currDate.get(Calendar.WEEK_OF_MONTH) - 1 <= 
+					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.WEEK_OF_MONTH)) &&
+					(currDate.get(Calendar.WEEK_OF_MONTH) >= 
+					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.WEEK_OF_MONTH))){
+				countsPerWeek += 1;
+			}
+			if ((currDate.get(Calendar.MONTH) - 1 <= 
+					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.MONTH)) &&
+					(currDate.get(Calendar.MONTH) >= 
+					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.MONTH))){
 				countsPerMonth += 1;
 			}
 		}
 		myArrayString.add("Counts per Minute "+Integer.toString(countsPerMinute));
 		myArrayString.add("Counts per Hour "+Integer.toString(countsPerHour));
-		myArrayString.add("Counts per Day "+Integer.toString(countsPerMonth));
+		myArrayString.add("Counts per Day "+Integer.toString(countsPerDay));
+		myArrayString.add("Counts per Week "+Integer.toString(countsPerWeek));
+		myArrayString.add("Counts per Month "+Integer.toString(countsPerMonth));
+
 		
+		System.out.println(myArrayString);
 		return myArrayString;
 	}
 }
