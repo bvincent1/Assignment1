@@ -25,6 +25,7 @@ public final class R {
     }
     public static final class id {
 <<<<<<< HEAD
+<<<<<<< HEAD
         public static final int action_settings=0x7f08000a;
         public static final int button1=0x7f080002;
         public static final int counterButton=0x7f080007;
@@ -35,6 +36,15 @@ public final class R {
         public static final int resetClickerButton=0x7f080006;
         public static final int statsActivityButon=0x7f080008;
         public static final int textNameView=0x7f080005;
+=======
+        public static final int action_settings=0x7f080007;
+        public static final int clikerCounterName=0x7f080005;
+        public static final int counterButton=0x7f080004;
+        public static final int counterListView=0x7f080001;
+        public static final int deleteClickerButton=0x7f080002;
+        public static final int resetClickerButton=0x7f080003;
+        public static final int statsActivityButon=0x7f080006;
+>>>>>>> parent of 8567919... App now resume from memery properly
 =======
         public static final int action_settings=0x7f080007;
         public static final int clikerCounterName=0x7f080005;
