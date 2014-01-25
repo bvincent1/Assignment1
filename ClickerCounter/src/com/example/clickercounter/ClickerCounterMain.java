@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,7 +19,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -26,7 +27,8 @@ public class ClickerCounterMain extends Activity {
     public final static String EXTRA_MESSAGE = "com.example.CLickerCounter.MESSAGE";
     
     private ListView counterList;
-    private ListAdapter adapter;
+    private ArrayAdapter<String> adapter;
+    private ArrayList<String> listStringArray;
     protected Context mContext;
 	public final String filename = "ClickerCounter.sav";
 
@@ -47,7 +49,7 @@ public class ClickerCounterMain extends Activity {
 	protected void onResume(){
 		super.onResume();
 		// build clicker model object array
-		ArrayList<String> myArrayString = new ArrayList<String>();		
+		listStringArray = new ArrayList<String>();		
 		ClickerCounterModel[] objectArray = readObjectFromFile();
 		
 		// check if we need empty clicker leading the list
@@ -73,13 +75,13 @@ public class ClickerCounterMain extends Activity {
 		
 		// build ListView array from object array clicker names
 		for (int i = 0;i< objectArray.length;i++){
-			myArrayString.add(objectArray[i].getClickerName()+"---"+objectArray[i].getClickerCount());
+			listStringArray.add(objectArray[i].getClickerName()+"---"+objectArray[i].getClickerCount());
 		}
 		
 		//Collections.sort(myArrayString, String.CASE_INSENSITIVE_ORDER);
 		
 		// build array list adapter with counters as source
-		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, myArrayString);
+		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, listStringArray);
 		counterList = (ListView) findViewById(R.id.counterListView);
 		counterList.setAdapter(adapter);
 
@@ -110,8 +112,51 @@ public class ClickerCounterMain extends Activity {
 	    startActivity(intent);
 	}
 
-	public void ChangeOrder(){
-		// TODO add sort
+	public void changeOrder(View view) {
+		// build descending order comparator
+		Comparator<String> descendingOrder = new Comparator<String>() {
+			public int compare(String obj1, String obj2) {
+				String temp1 = obj1.substring(obj1.indexOf("---") + 3,
+						obj1.length());
+				String temp2 = obj2.substring(obj2.indexOf("---") + 3,
+						obj2.length());
+				if (Integer.decode(temp1) > Integer.decode(temp2)) {
+					return 1;
+				}
+				if (Integer.decode(temp1) < Integer.decode(temp2)) {
+					return -1;
+				}
+				return 0;
+			}
+		};
+		// build ascending order comparator
+		Comparator<String> ascendingOrder = new Comparator<String>() {
+			public int compare(String obj1, String obj2) {
+				String temp1 = obj1.substring(obj1.indexOf("---") + 3,
+						obj1.length());
+				System.out.println(Integer.getInteger(temp1));
+				String temp2 = obj2.substring(obj2.indexOf("---") + 3,
+						obj2.length());
+				if (Integer.decode(temp1) > Integer.decode(temp2)) {
+					return -1;
+				}
+				if (Integer.decode(temp1) < Integer.decode(temp2)) {
+					return 1;
+				}
+				return 0;
+			}
+		};
+
+		if (descendingOrder.compare(listStringArray.get(1), listStringArray.get(0)) > 0 ){
+			System.out.println("Ascending:"+descendingOrder.compare(listStringArray.get(0), listStringArray.get(1)));
+			Collections.sort(listStringArray, ascendingOrder);
+		}
+		else{
+			Collections.sort(listStringArray, descendingOrder);
+			System.out.println("Descending:"+descendingOrder.compare(listStringArray.get(0), listStringArray.get(1)));
+		}
+		
+		adapter.notifyDataSetChanged();
 	}
 
 	public ClickerCounterModel[] makeClickerModelArray(int num){
