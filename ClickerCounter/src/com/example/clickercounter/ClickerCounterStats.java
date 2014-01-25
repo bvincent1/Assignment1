@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.clickercounter.R;
 import com.google.gson.Gson;
 
 public class ClickerCounterStats extends Activity {

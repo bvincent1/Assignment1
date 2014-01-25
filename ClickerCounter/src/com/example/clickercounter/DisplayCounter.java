@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.clickercounter.R;
 import com.google.gson.Gson;
 
 public class DisplayCounter extends Activity {
