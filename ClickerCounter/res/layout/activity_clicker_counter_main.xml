@@ -32,6 +32,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="@string/reorderButton"
-        android:onClick="changeOrder" />
+        android:onCick="changeOrder" />
 
 </RelativeLayout>
