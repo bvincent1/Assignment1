@@ -24,78 +24,84 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 
 public class ClickerCounterMain extends Activity {
-    public final static String EXTRA_MESSAGE = "com.example.CLickerCounter.MESSAGE";
-    
-    private ListView counterList;
-    private ArrayAdapter<String> adapter;
-    private ArrayList<String> listStringArray;
-    protected Context mContext;
-	public final String filename = "ClickerCounter.sav";
+	public final static String EXTRA_MESSAGE = "com.example.CLickerCounter.MESSAGE";
 
+	private ListView counterList;
+	private ArrayAdapter<String> adapter;
+	private ArrayList<String> listStringArray;
+	protected Context mContext;
+	public final String filename = "ClickerCounter.sav";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_clicker_counter_main);
-		
+
 		if (readObjectFromFile() == null) {
 			// make default clicker object with "new counter +"
 			ClickerCounterModel[] objectArray = makeClickerModelArray(1);
 			writeObjectToFile(objectArray);
 		}
 	}
-	
+
 	@Override
-	protected void onResume(){
+	protected void onResume() {
 		super.onResume();
 		// build clicker model object array
-		listStringArray = new ArrayList<String>();		
+		listStringArray = new ArrayList<String>();
 		ClickerCounterModel[] objectArray = readObjectFromFile();
-		
+
 		// check if we need empty clicker leading the list
-		if (objectArray[0].getClickerName().equals("New Counter +") == false){
-			int num = objectArray.length+1;
+		if (objectArray[0].getClickerName().equals("New Counter +") == false) {
+			int num = objectArray.length + 1;
 			System.out.println("adding");
 			System.out.println(num);
-			
-			// insert new empty counter in front of others		
+
+			// insert new empty counter in front of others
 			ClickerCounterModel[] tempObjectArray = new ClickerCounterModel[num];
 			tempObjectArray[0] = new ClickerCounterModel("New Counter +");
 			tempObjectArray[0].setClickerCount(0);
-			for(int i = 1; i < num; i++){
-				tempObjectArray[i] = new ClickerCounterModel(objectArray[i-1].getClickerName());
-				tempObjectArray[i].setClickerCount(objectArray[i-1].getClickerCount());
+			for (int i = 1; i < num; i++) {
+				tempObjectArray[i] = new ClickerCounterModel(
+						objectArray[i - 1].getClickerName());
+				tempObjectArray[i].setClickerCount(objectArray[i - 1]
+						.getClickerCount());
 				// TODO implement time stamps
-				tempObjectArray[i].setClickerTimestamps(objectArray[i-1].getClickerTimestamps());
+				tempObjectArray[i].setClickerTimestamps(objectArray[i - 1]
+						.getClickerTimestamps());
 			}
 			// reassign object to new array
 			writeObjectToFile(tempObjectArray);
 			objectArray = tempObjectArray;
 		}
-		
+
 		// build ListView array from object array clicker names
-		for (int i = 0;i< objectArray.length;i++){
-			listStringArray.add(objectArray[i].getClickerName()+"---"+objectArray[i].getClickerCount());
+		for (int i = 0; i < objectArray.length; i++) {
+			listStringArray.add(objectArray[i].getClickerName() + "---"
+					+ objectArray[i].getClickerCount());
 		}
-		
-		//Collections.sort(myArrayString, String.CASE_INSENSITIVE_ORDER);
-		
+
+		// Collections.sort(myArrayString, String.CASE_INSENSITIVE_ORDER);
+
 		// build array list adapter with counters as source
-		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, listStringArray);
+		adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, listStringArray);
 		counterList = (ListView) findViewById(R.id.counterListView);
 		counterList.setAdapter(adapter);
 
 		// set listener for list view and goto display counter activity
 		counterList.setOnItemClickListener(new OnItemClickListener() {
-	        public void onItemClick(AdapterView<?> parent, View view,
-	                int position, long id) {
-	        	String selectedFromList = (String) counterList.getItemAtPosition(position);
-	        	selectedFromList = selectedFromList.substring(0, selectedFromList.lastIndexOf("---")); 
-	        	System.out.println(selectedFromList);
-	        	// go to display counter activity
-	        	displayClickerCounter(view, selectedFromList);
-	        }
-	    });
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				String selectedFromList = (String) counterList
+						.getItemAtPosition(position);
+				selectedFromList = selectedFromList.substring(0,
+						selectedFromList.lastIndexOf("---"));
+				System.out.println(selectedFromList);
+				// go to display counter activity
+				displayClickerCounter(view, selectedFromList);
+			}
+		});
 	}
 
 	@Override
@@ -104,12 +110,12 @@ public class ClickerCounterMain extends Activity {
 		getMenuInflater().inflate(R.menu.clicker_counter_main, menu);
 		return true;
 	}
-	
-	public void displayClickerCounter(View view, String message){
+
+	public void displayClickerCounter(View view, String message) {
 		// go to clicker display activity, which will load the clicker
 		Intent intent = new Intent(this, DisplayCounter.class);
-	    intent.putExtra(EXTRA_MESSAGE, message);
-	    startActivity(intent);
+		intent.putExtra(EXTRA_MESSAGE, message);
+		startActivity(intent);
 	}
 
 	public void changeOrder(View view) {
@@ -147,36 +153,40 @@ public class ClickerCounterMain extends Activity {
 			}
 		};
 
-		if (descendingOrder.compare(listStringArray.get(1), listStringArray.get(0)) > 0 ){
-			System.out.println("Ascending:"+descendingOrder.compare(listStringArray.get(0), listStringArray.get(1)));
-			Collections.sort(listStringArray, ascendingOrder);
+		if (listStringArray.size() > 1) {
+			if (descendingOrder.compare(listStringArray.get(1),
+					listStringArray.get(0)) > 0) {
+				System.out.println("Ascending:"
+						+ descendingOrder.compare(listStringArray.get(0),
+								listStringArray.get(1)));
+				Collections.sort(listStringArray, ascendingOrder);
+			} else {
+				Collections.sort(listStringArray, descendingOrder);
+				System.out.println("Descending:"
+						+ descendingOrder.compare(listStringArray.get(0),
+								listStringArray.get(1)));
+			}
 		}
-		else{
-			Collections.sort(listStringArray, descendingOrder);
-			System.out.println("Descending:"+descendingOrder.compare(listStringArray.get(0), listStringArray.get(1)));
-		}
-		
 		adapter.notifyDataSetChanged();
 	}
 
-	public ClickerCounterModel[] makeClickerModelArray(int num){
+	public ClickerCounterModel[] makeClickerModelArray(int num) {
 		// make array of clicker counter model objects
 		ClickerCounterModel[] tempObject = new ClickerCounterModel[num];
-		for(int i = 0; i < num; i++){
-			if (i>0){
-				tempObject[i] = new ClickerCounterModel("New Counter +"+i);
-			}
-			else{
+		for (int i = 0; i < num; i++) {
+			if (i > 0) {
+				tempObject[i] = new ClickerCounterModel("New Counter +" + i);
+			} else {
 				tempObject[i] = new ClickerCounterModel("New Counter +");
 			}
 		}
 		return tempObject;
 	}
-	
-	public ClickerCounterModel[] readObjectFromFile(){
+
+	public ClickerCounterModel[] readObjectFromFile() {
 		// read in ClickerCounterModel gson type from file
 		StringBuilder sb = new StringBuilder();
-		try{
+		try {
 			FileInputStream inputStream = openFileInput(filename);
 			InputStreamReader isr = new InputStreamReader(inputStream);
 			BufferedReader bufferedReader = new BufferedReader(isr);
@@ -192,22 +202,24 @@ public class ClickerCounterMain extends Activity {
 			e.printStackTrace();
 		}
 		// check if generating new files
-		if (sb.equals(null)){
+		if (sb.equals(null)) {
 			return null;
 		}
 		// use Gson to convert it into and object
 		String json = sb.toString();
 		Gson gson = new Gson();
-		ClickerCounterModel[] object = gson.fromJson(json, ClickerCounterModel[].class);
+		ClickerCounterModel[] object = gson.fromJson(json,
+				ClickerCounterModel[].class);
 		return object;
 	}
 
-	public void writeObjectToFile(ClickerCounterModel[] temp){
+	public void writeObjectToFile(ClickerCounterModel[] temp) {
 		// convert from object to gson and write to file
 		try {
 			Gson gson = new Gson();
 			String string = gson.toJson(temp);
-			FileOutputStream outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+			FileOutputStream outputStream = openFileOutput(filename,
+					Context.MODE_PRIVATE);
 			outputStream.write(string.getBytes());
 			outputStream.close();
 		} catch (Exception e) {

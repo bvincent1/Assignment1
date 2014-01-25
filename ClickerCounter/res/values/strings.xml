@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">ClickerCounter</string>
+    <string name="app_name">vincentClickerCounter</string>
     <string name="action_settings">Settings</string>
     <string name="clickerCounterTitle">Welcome</string>
     <string name="newCounterButton">New Counter+</string>

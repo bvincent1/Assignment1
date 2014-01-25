@@ -32,21 +32,23 @@ public class ClickerCounterStats extends Activity {
 		setContentView(R.layout.activity_clicker_counter_stats);
 		// receive counter name
 		Intent intent = getIntent();
-		String tempCounterName = intent.getStringExtra(ClickerCounterMain.EXTRA_MESSAGE);
+		String tempCounterName = intent
+				.getStringExtra(ClickerCounterMain.EXTRA_MESSAGE);
 		System.out.println(tempCounterName);
 		// build counter object from file
 		objectArray = readObjectFromFile();
-		for (int i = 0; i < objectArray.length; i++){
-			if (objectArray[i].getClickerName().equals(tempCounterName)){
+		for (int i = 0; i < objectArray.length; i++) {
+			if (objectArray[i].getClickerName().equals(tempCounterName)) {
 				clickerCountObject = objectArray[i];
 			}
 		}
 		// set title name
 		TextView counterName = (TextView) findViewById(R.id.textNameView);
 		counterName.setText(tempCounterName);
-		ArrayList <String> temp = null;
-		temp =  getCountStatics();
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,temp);
+		ArrayList<String> temp = null;
+		temp = getCountStatics();
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, temp);
 		ListView counterList = (ListView) findViewById(R.id.listStats);
 		counterList.setAdapter(adapter);
 	}
@@ -58,46 +60,52 @@ public class ClickerCounterStats extends Activity {
 		return true;
 	}
 
-	public void deleteClicker(View view){
-		// clicker remove array  entry
-		int num = objectArray.length-1;
+	public void deleteClicker(View view) {
+		// clicker remove array entry
+		int num = objectArray.length - 1;
 		System.out.println("delete");
-		
+
 		// create copy of object array and skip entry to which we want to remove
 		ClickerCounterModel[] tempObjectArray = new ClickerCounterModel[num];
-		for(int i = 0; i < num; i++){
-			if (objectArray[i].getClickerName() != clickerCountObject.getClickerName()){
-				tempObjectArray[i] = new ClickerCounterModel(objectArray[i].getClickerName());
-				tempObjectArray[i].setClickerCount(objectArray[i].getClickerCount());
-				tempObjectArray[i].setClickerTimestamps(objectArray[i].getClickerTimestamps());
+		for (int i = 0; i < num; i++) {
+			if (!objectArray[i].getClickerName().equals(
+					clickerCountObject.getClickerName())) {
+				tempObjectArray[i] = new ClickerCounterModel(
+						objectArray[i].getClickerName());
+				tempObjectArray[i].setClickerCount(objectArray[i]
+						.getClickerCount());
+				tempObjectArray[i].setClickerTimestamps(objectArray[i]
+						.getClickerTimestamps());
 			}
 		}
 		// reassign object to new array
 		writeObjectToFile(tempObjectArray);
-		
+
 		// restart the application
-		Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
+		Intent i = getBaseContext().getPackageManager()
+				.getLaunchIntentForPackage(getBaseContext().getPackageName());
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
 	}
 
-	public void resetClicker(View view){
+	public void resetClicker(View view) {
 		System.out.println("reset");
 		// call the reset clicker reset method and save
 		clickerCountObject.resetCount();
 		writeObjectToFile(objectArray);
-		
+
 		// restart the application
-		Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
+		Intent i = getBaseContext().getPackageManager()
+				.getLaunchIntentForPackage(getBaseContext().getPackageName());
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
-		
+
 	}
 
-	public ClickerCounterModel[] readObjectFromFile(){
+	public ClickerCounterModel[] readObjectFromFile() {
 		// read in ClickerCounterModel gson type from file
 		StringBuilder sb = new StringBuilder();
-		try{
+		try {
 			FileInputStream inputStream = openFileInput(filename);
 			InputStreamReader isr = new InputStreamReader(inputStream);
 			BufferedReader bufferedReader = new BufferedReader(isr);
@@ -115,16 +123,18 @@ public class ClickerCounterStats extends Activity {
 		// use Gson to convert it into and object
 		String json = sb.toString();
 		Gson gson = new Gson();
-		ClickerCounterModel[] object = gson.fromJson(json, ClickerCounterModel[].class);
+		ClickerCounterModel[] object = gson.fromJson(json,
+				ClickerCounterModel[].class);
 		return object;
 	}
 
-	public void writeObjectToFile(ClickerCounterModel[] temp){
+	public void writeObjectToFile(ClickerCounterModel[] temp) {
 		// convert from object to gson and write to file
 		try {
 			Gson gson = new Gson();
 			String string = gson.toJson(temp);
-			FileOutputStream outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+			FileOutputStream outputStream = openFileOutput(filename,
+					Context.MODE_PRIVATE);
 			outputStream.write(string.getBytes());
 			outputStream.close();
 		} catch (Exception e) {
@@ -132,59 +142,62 @@ public class ClickerCounterStats extends Activity {
 		}
 	}
 
-	public ArrayList<String> getCountStatics(){
+	public ArrayList<String> getCountStatics() {
 		// init local counts for building array
 		int countsPerMinute = 0;
 		int countsPerHour = 0;
 		int countsPerDay = 0;
 		int countsPerWeek = 0;
 		int countsPerMonth = 0;
-		
+
 		// get a comparison time and start comparing the times against it
 		ArrayList<String> myArrayString = new ArrayList<String>();
 		Calendar currDate = Calendar.getInstance();
-		for (int i = 0; i < clickerCountObject.getClickerTimestamps().size();i++){
-			System.out.println(
-					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.MINUTE) <= 
-					currDate.get(Calendar.MINUTE));
-			if (currDate.get(Calendar.MINUTE) -1 <= 
-					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.MINUTE) &&
-					currDate.get(Calendar.MINUTE) >=
-					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.MINUTE)){
+		for (int i = 0; i < clickerCountObject.getClickerTimestamps().size(); i++) {
+			System.out.println(clickerCountObject.getClickerTimestamps().get(i)
+					.get(Calendar.MINUTE) <= currDate.get(Calendar.MINUTE));
+			if (currDate.get(Calendar.MINUTE) - 1 <= clickerCountObject
+					.getClickerTimestamps().get(i).get(Calendar.MINUTE)
+					&& currDate.get(Calendar.MINUTE) >= clickerCountObject
+							.getClickerTimestamps().get(i).get(Calendar.MINUTE)) {
 				countsPerMinute += 1;
 			}
-			if (currDate.get(Calendar.HOUR_OF_DAY) - 1 <= 
-					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.HOUR_OF_DAY) &&
-					currDate.get(Calendar.HOUR_OF_DAY) >= 
-					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.HOUR_OF_DAY)){
+			if (currDate.get(Calendar.HOUR_OF_DAY) - 1 <= clickerCountObject
+					.getClickerTimestamps().get(i).get(Calendar.HOUR_OF_DAY)
+					&& currDate.get(Calendar.HOUR_OF_DAY) >= clickerCountObject
+							.getClickerTimestamps().get(i)
+							.get(Calendar.HOUR_OF_DAY)) {
 				countsPerHour += 1;
 			}
-			if ((currDate.get(Calendar.DAY_OF_MONTH) - 1 <= 
-					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.DAY_OF_MONTH)) &&
-					(currDate.get(Calendar.DAY_OF_MONTH) >= 
-					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.DAY_OF_MONTH))){
+			if ((currDate.get(Calendar.DAY_OF_MONTH) - 1 <= clickerCountObject
+					.getClickerTimestamps().get(i).get(Calendar.DAY_OF_MONTH))
+					&& (currDate.get(Calendar.DAY_OF_MONTH) >= clickerCountObject
+							.getClickerTimestamps().get(i)
+							.get(Calendar.DAY_OF_MONTH))) {
 				countsPerDay += 1;
 			}
-			if ((currDate.get(Calendar.WEEK_OF_MONTH) - 1 <= 
-					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.WEEK_OF_MONTH)) &&
-					(currDate.get(Calendar.WEEK_OF_MONTH) >= 
-					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.WEEK_OF_MONTH))){
+			if ((currDate.get(Calendar.WEEK_OF_MONTH) - 1 <= clickerCountObject
+					.getClickerTimestamps().get(i).get(Calendar.WEEK_OF_MONTH))
+					&& (currDate.get(Calendar.WEEK_OF_MONTH) >= clickerCountObject
+							.getClickerTimestamps().get(i)
+							.get(Calendar.WEEK_OF_MONTH))) {
 				countsPerWeek += 1;
 			}
-			if ((currDate.get(Calendar.MONTH) - 1 <= 
-					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.MONTH)) &&
-					(currDate.get(Calendar.MONTH) >= 
-					clickerCountObject.getClickerTimestamps().get(i).get(Calendar.MONTH))){
+			if ((currDate.get(Calendar.MONTH) - 1 <= clickerCountObject
+					.getClickerTimestamps().get(i).get(Calendar.MONTH))
+					&& (currDate.get(Calendar.MONTH) >= clickerCountObject
+							.getClickerTimestamps().get(i).get(Calendar.MONTH))) {
 				countsPerMonth += 1;
 			}
 		}
-		myArrayString.add("Counts per Minute "+Integer.toString(countsPerMinute));
-		myArrayString.add("Counts per Hour "+Integer.toString(countsPerHour));
-		myArrayString.add("Counts per Day "+Integer.toString(countsPerDay));
-		myArrayString.add("Counts per Week "+Integer.toString(countsPerWeek));
-		myArrayString.add("Counts per Month "+Integer.toString(countsPerMonth));
+		myArrayString.add("Counts per Minute "
+				+ Integer.toString(countsPerMinute));
+		myArrayString.add("Counts per Hour " + Integer.toString(countsPerHour));
+		myArrayString.add("Counts per Day " + Integer.toString(countsPerDay));
+		myArrayString.add("Counts per Week " + Integer.toString(countsPerWeek));
+		myArrayString.add("Counts per Month "
+				+ Integer.toString(countsPerMonth));
 
-		
 		System.out.println(myArrayString);
 		return myArrayString;
 	}
